@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframeword.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.cj.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/rakeshdb</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>root</value>
+		</property>
+	</bean>
+	
+	<bean id="employeeDaoImpl" class="com.rakesh.springdao.repository.EmployeeDaoImpl">
+		<property name="dataSource">
+			<ref bean="dataSource"/>
+		</property>
+	</bean>
+
+	<bean id="employeeService" class="com.rakesh.springdao.service.EmployeeServiceImpl">
+		<constructor-arg ref="employeeDaoImpl"/>
+	</bean>
+
+	<bean id="employeeController" class="com.rakesh.springdao.controller.EmployeeController">
+		<constructor-arg ref="employeeService"/>
+	</bean>
+
+
+</beans>
